@@ -6,6 +6,7 @@
 
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const path = require('path');
 const baseConfig = require('./webpack.config.base');
 
 const port = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ module.exports = merge(baseConfig, {
   ],
 
   output: {
+    path: path.join(__dirname, 'app/dist'),
     publicPath: `http://localhost:${port}/dist/`
   },
 

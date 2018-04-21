@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello Electron React!</title>
+    <title>RPM</title>
     <script>
       (function() {
         if (!process.env.HOT) {
@@ -49,8 +49,9 @@
       <h1>LOADING...</h1>
     </div>
     <webview
+            id="mainWebView"
             class="hide"
-            preload="./preload.js"
+            preload="./dist/preload.js"
             src="https://portal-1.development.rpm.commit.nz/"
     ></webview>
 
@@ -68,10 +69,13 @@
           : './dist/bundle.js';
         // HACK: Writing the script path should be done with webpack
         document.body.appendChild(script);
+
+        const element = document.getElementById('mainWebView');
+          element.preLoad = (process.env.HOT) ? './preload' : './dist/preload';
       }
     </script>
     <script>
-        require('./renderer');
+        require((process.env.HOT) ? './renderer' : './dist/renderer');
     </script>
   </body>
 </html>

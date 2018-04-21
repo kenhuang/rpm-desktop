@@ -72,9 +72,9 @@ app.on('ready', () =>
 
   if (process.platform === 'darwin') {
     template = [{
-      label: 'Electron',
+      label: 'RPM',
       submenu: [{
-        label: 'About ElectronReact',
+        label: 'About RPM',
         selector: 'orderFrontStandardAboutPanel:'
       }, {
         type: 'separator'
@@ -84,7 +84,7 @@ app.on('ready', () =>
       }, {
         type: 'separator'
       }, {
-        label: 'Hide ElectronReact',
+        label: 'Hide RPM',
         accelerator: 'Command+H',
         selector: 'hide:'
       }, {

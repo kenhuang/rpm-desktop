@@ -3,6 +3,7 @@
  */
 
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {
   dependencies: externals
 } = require('./app/package.json');
@@ -36,7 +37,18 @@ module.exports = {
     ]
   },
 
-  plugins: [],
+  plugins: [
+      new CopyWebpackPlugin([
+          {
+              from: 'app/preload.js',
+              to: path.join(__dirname, 'app/dist/preload.js')
+          },
+          {
+              from: 'app/renderer.js',
+              to: path.join(__dirname, 'app/dist/renderer.js')
+          },
+      ])
+  ],
 
   externals: Object.keys(externals || {})
 };
