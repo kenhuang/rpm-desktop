@@ -5,6 +5,7 @@
   "description": "Electron application boilerplate based on TypeScript, React, React Router, Webpack, React Hot Loader for rapid application development",
   "main": "main.js",
   "scripts": {
+    "lint": "tslint --project tsconfig.json -e 'node_modules/**'",
     "test": "cross-env NODE_ENV=test node --trace-warnings ./test/runTests.js",
     "test-all": "npm run test && npm run build && npm run test-e2e",
     "test-watch": "npm test -- --watch",
@@ -155,6 +156,8 @@
     "ts-loader": "^3.1.0",
     "ts-node": "^4.1.0",
     "tslint": "^5.4.3",
+    "tslint-eslint-rules": "4.1.1",
+    "tslint-react": "3.2.0",
     "typescript": "^2.4.1",
     "url-loader": "^0.6.1",
     "webpack": "^3.3.0",
