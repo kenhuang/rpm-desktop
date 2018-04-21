@@ -99,7 +99,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/irath96/electron-react-typescript-boilerplate/issues"
+    "url": "http://commit.nz"
   },
   "keywords": [
     "electron",
@@ -110,7 +110,7 @@
     "webpack",
     "react-hot"
   ],
-  "homepage": "https://github.com/irath96/electron-react-typescript-boilerplate#readme",
+  "homepage": "http://commit.nz",
   "devDependencies": {
     "@types/enzyme": "^3.1.1",
     "@types/history": "^4.5.2",
