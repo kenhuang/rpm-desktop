@@ -52,10 +52,11 @@ deploy:
   provider: releases
   api_key:
     secure: tbSI8khaTKW1JlqEqHvUsW/qkzbN/5YPaO/0IwsCTPQlV0sM8zUC2DwLhNfna2naOqIbUs24bmR1RljFpLNLJqM5EJfislqJWo+oD+adK3wSo5w+JiQholqHelIjbbssrKpX/2ObhlYRqYgRLP8UxB7nKFAlkspcxD0cLTcR3PPiUi4sG8rPtCCvgHijO9Qtw4CirUz8uzxdv0wOyJOUqmwQAKFiXWMvpH0lY2EERIypZ3yJJxI3ky9WfntoBesNfh2tpDFbK+PYc4uGOsKrhepEUxEz7Vz6AhpUj7O2AvmflU6kg1kCObtoxHmyIIYXgVH44S5CXY8Tsc1ITvjx3HKZfBsABRjPWHBhQFon5aMmudvY9C8N6K97UWlTcYzVgofYYPCAx5bp8GO9Z10xBrTFJ9nFhfDGWvdu7YKwxqMxL3lPCCjVLTStFUgU9Ms09PXjsG+elcAmoeiqgLKuF1+lGrMOJStY7ojodPiLFjalh5Z24vbxCrxu7L0mQ/h4lmD4togNVWjWEmmqKMRNXkWa7BRDOtyVBL3B0mTZ+NzM3q4tqBgXhtKApw/RdLXIjGUKLecgqGz8FsSaFgqsv+MsALuaRwrEoaldVYtChDMzAcJg2aBfcUzyuoUBQ9DdSvbV63a0jXF6C/20bHS8dB5KoAOGEusA0UKE+wmyC+Y=
-    file:
-      - release/*.dmg
-      - release/*.zip
-      - release/*.exe
+  file:
+    - release/*.dmg
+    - release/*.zip
+    - release/*.exe
+  skip_cleanup: true
   on:
     repo: kenhuang/rpm-desktop
     tags: true
