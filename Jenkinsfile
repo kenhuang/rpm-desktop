@@ -20,19 +20,19 @@ node {
             sh "yarn test"
         }
 
-        if (env.BRANCH_NAME == "master") {
-            stage('package') {
-//                sh "yarn package-mac"
-                sh "yarn package-win"
-            }
-
-            post {
-                always {
-                    archiveArtifacts artifacts: 'release/**/*.dmg', fingerprint: true
-                    archiveArtifacts artifacts: 'release/**/*.zip', fingerprint: true
-                }
-            }
-        }
+//        if (env.BRANCH_NAME == "master") {
+//            stage('package') {
+////                sh "yarn package-mac"
+//                sh "yarn package-win"
+//            }
+//
+//            post {
+//                always {
+//                    archiveArtifacts artifacts: 'release/**/*.dmg', fingerprint: true
+//                    archiveArtifacts artifacts: 'release/**/*.zip', fingerprint: true
+//                }
+//            }
+//        }
 
 
     } catch (e) {
