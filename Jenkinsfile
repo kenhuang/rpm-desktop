@@ -4,6 +4,10 @@ node {
     try {
         notifyBuild('STARTED')
 
+        stage('Init') {
+            env.PATH="${tool 'Node 7.x'}/bin:./node_modules/.bin:${env.PATH}"
+            // echo sh(script: 'env|sort', returnStdout: true) // will print secret env vars, only use for debug
+        }
         stage('checkout') {
             deleteDir()
             checkout scm
