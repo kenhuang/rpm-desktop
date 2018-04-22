@@ -22,9 +22,18 @@ node {
 
         if (env.BRANCH_NAME == "master") {
             stage('package') {
-                sh "yarn package-all"
+                sh "yarn package"
+                sh "yarn package-win"
+            }
+
+            post {
+                always {
+                    archiveArtifacts artifacts: 'release/**/*.dmg', fingerprint: true
+                    archiveArtifacts artifacts: 'release/**/*.zip', fingerprint: true
+                }
             }
         }
+
 
     } catch (e) {
         currentBuild.result = "FAILED"
