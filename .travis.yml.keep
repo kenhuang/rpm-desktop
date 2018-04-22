@@ -1,0 +1,89 @@
+osx_image: xcode8.3
+
+dist: trusty
+sudo: false
+
+language: node_js
+node_js: "8"
+
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
+os:
+  - linux
+  - osx
+
+cache:
+  yarn: true
+  directories:
+  - node_modules
+  - app/node_modules
+  - $HOME/.cache/electron
+  - $HOME/.cache/electron-builder
+  - $HOME/.npm/_prebuilds
+
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - icnsutils
+    - graphicsmagick
+    - xz-utils
+    - xorriso
+
+before_install:
+  - yarn global add greenkeeper-lockfile@1
+  - mkdir -p /tmp/git-lfs && curl -L https://github.com/github/git-lfs/releases/download/v2.2.0/git-lfs-$([ "$TRAVIS_OS_NAME" == "linux" ] && echo "linux" || echo "darwin")-amd64-2.2.0.tar.gz | tar -xz -C /tmp/git-lfs --strip-components 1 && /tmp/git-lfs/git-lfs pull
+  - curl -L https://yarnpkg.com/latest.tar.gz | tar xvz && mv dist $HOME/.yarn
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+install:
+- export CXX="g++-4.8"
+- yarn
+- cd app && yarn && cd ..
+#- /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+#  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16
+
+before_script:
+- greenkeeper-lockfile-update
+#- export DISPLAY=:99.0
+#- sh -e /etc/init.d/xvfb start &
+#- sleep 3
+
+script:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then yarn package-linux; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then yarn package -- --mac --win; fi
+#- node --version
+#- yarn package
+#- yarn test
+#- yarn test-e2e
+
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
+
+after_script: greenkeeper-lockfile-upload
+
+#env:
+#  global:
+#    secure: hH+MmHE3WhyyBflZoOZLqqr501OOnvA1VtaqF3WU9rJCpjnKb4fZvHejYtVw65Ho2C40G2a34oBGxnT6INF1BfClYz4IMijL689xuR8dgStQzvcpMTwEQkrLsaCTSqXJR6nzqbRRGmaRfjSLdF6vhd3bGmtVNMEtoEky5EsXeBVjn8D5WMrme17m4F4D/qjHty6Xr5PjZL6eInVKlPZEbALYBhnIWqE5Xw6LcGa8JkqsWw80sLNtz4yWQSwkjrZ1lzCNd/GSUDN5K/BFK6kUZB5HpJZUzUoIQyXmEft+ALZFE4p4tX/H044JguPN9sKsP4SNkz2+3tOMevz/x5of3ssLMqB7gFtd5SGKwjdn6sWYNHKeM0MALyXAARhilyzY0v+xf226ZLRb++8Ih/vAZNymvQjn0idBfwC8ffUSXEx786Zysot1AqWrxaktKFHkBHkiQ4BGkAXVT4FLCgLtdMta+NLYYmuNrmXoU2iEhSzwvZmw94wcBxZie+TvuXE76TgrOiopRPbGXw/0iDm8J1MVWpoPmqSLUG5Vbq9fSNZnR/6j89j7Ws83fdnfZby+qOcV5WMJetQs/EHTxfWJu/AM6bxCYSSmXEJUb8dHpk8el8T+MGLI9pCTiiyy1ozOeo1WKpcOdmF6GU64EOxRWn2837+a9W0kXXAj6tPCW6A=
+
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
+
+deploy:
+   provider: releases
+   api_key:
+       secure: <your key>
+   file:
+       - release/*.dmg
+       - release/*.zip
+       - release/*.exe
+   skip_cleanup: true
+   on:
+       repo: https://github.com/kenhuang/rpm-desktop
+       tags: true
