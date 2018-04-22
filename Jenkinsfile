@@ -22,7 +22,7 @@ node {
 
         if (env.BRANCH_NAME == "master") {
             stage('package') {
-                sh "yarn package-mac"
+//                sh "yarn package-mac"
                 sh "yarn package-win"
             }
 
